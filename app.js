@@ -7,10 +7,6 @@ const inquirer = require('inquirer');
 //     console.log('Portfolio complete! Check out index.html to see the output!');
 //   });
 
-const validate = input => {
-    return input ? true : false
-}
-
 const promptUser = () => {
     return inquirer.prompt([
       {
@@ -26,10 +22,17 @@ const promptUser = () => {
         validate: input => input ? true : false
       },
       {
+        type: 'confirm',
+        name: 'confirmAbout',
+        message: 'Would you like to enter some information about yourself for an "About" section?',
+        default: true
+      },
+      {
         type: 'input',
         name: 'about',
         message: 'Provide some information about yourself:',
-        validate: input => input ? true : false
+        validate: input => input ? true : false,
+        when: ({ confirmAbout }) => confirmAbout ? true : false
       }
     ])
 };
